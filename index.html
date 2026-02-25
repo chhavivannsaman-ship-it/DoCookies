@@ -147,7 +147,7 @@
                 <div class="submenu">
                     <div class="submenu-item" data-value="dedicated_aordcid7_42507">aordcid7 42507</div>
                     <div class="submenu-item" data-value="dedicated_aordci1_800">aordci1 800</div>
-                    <div class="submenu-item" data-value="dedicated_aordci2_42288">aordci2 42288</div>
+                    <div class="submenu-item" data-value="dedicated_aordcid2_42288">aordcid2 42288</div>
                     <div class="submenu-item" data-value="dedicated_aordcid2_861">aordcid2 861</div>
                     <div class="submenu-item" data-value="dedicated_aordcid2_42278">aordcid2 42278</div>
                     <div class="submenu-item" data-value="dedicated_aordcid2_41780">aordcid2 41780</div>
@@ -219,11 +219,14 @@
         // Show the correct form based on selection; hide all others first
         document.getElementById('form-aordcid7-42507').style.display = 'none';
         document.getElementById('form-aordci1-800').style.display = 'none';
+        document.getElementById('form-aordci2-42288').style.display = 'none';
 
         if (value === 'dedicated_aordcid7_42507') {
             document.getElementById('form-aordcid7-42507').style.display = 'block';
         } else if (value === 'dedicated_aordci1_800') {
             document.getElementById('form-aordci1-800').style.display = 'block';
+        } else if (value === 'dedicated_aordci2_42288') {
+            document.getElementById('form-aordci2-42288').style.display = 'block';
         }
     }
 </script>
