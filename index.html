@@ -8,7 +8,7 @@
         /* ── Page layout ── */
         body {
             margin: 0;
-            padding: 80px 24px 24px; /* 80px top clears the fixed selector bar */
+            padding: 80px 24px 24px;
             font-family: 'helvetica neue', helvetica, arial, sans-serif;
         }
 
@@ -127,13 +127,6 @@
         .submenu-item:hover {
             background: #f0f0f0;
         }
-
-        /* ── Divider between items (optional) ── */
-        .dropdown-divider {
-            height: 1px;
-            background: #eeeeee;
-            margin: 2px 0;
-        }
     </style>
 </head>
 <body>
@@ -175,13 +168,11 @@
     const display  = document.getElementById('selectedDisplay');
     const dropdown = document.getElementById('dropdown');
 
-    // Toggle open/close on button click
     display.addEventListener('click', function(e) {
         dropdown.classList.toggle('open');
         e.stopPropagation();
     });
 
-    // Select a top-level item (non-submenu)
     document.querySelectorAll('.dropdown-item:not(.has-sub)').forEach(function(item) {
         item.addEventListener('click', function(e) {
             setSelected(item.dataset.value, item.textContent.trim());
@@ -189,7 +180,6 @@
         });
     });
 
-    // Select a submenu item
     document.querySelectorAll('.submenu-item').forEach(function(item) {
         item.addEventListener('click', function(e) {
             setSelected(item.dataset.value, 'Dedicated: ' + item.textContent.trim());
@@ -197,7 +187,6 @@
         });
     });
 
-    // Close dropdown when clicking anywhere outside
     document.addEventListener('click', function() {
         dropdown.classList.remove('open');
     });
@@ -206,7 +195,7 @@
         display.textContent = label;
         dropdown.classList.remove('open');
         console.log('Selected environment:', value);
-        // Add your environment switching logic here
+        // TODO: add environment switching logic here
     }
 </script>
 
