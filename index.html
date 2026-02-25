@@ -5,55 +5,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Where's my cookies?</title>
     <style>
+        /* ── Page layout ── */
+        body {
+            margin: 0;
+            padding: 80px 24px 24px; /* 80px top clears the fixed selector bar */
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+        }
+
+        /* ── Environment selector bar ── */
         .environment-selector {
             position: fixed;
-            top: 100px;
-            right: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: #ffffff;
+            border-bottom: 1px solid #dddddd;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 20px;
             z-index: 2000;
+            box-sizing: border-box;
+        }
+
+        /* ── Custom dropdown wrapper ── */
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+        }
+
+        .selected-display {
+            padding: 7px 30px 7px 12px;
+            border: 1px solid #444444;
+            border-radius: 4px;
+            background: #ffffff;
+            cursor: pointer;
+            font-size: 14px;
+            min-width: 150px;
+            user-select: none;
+            position: relative;
+            color: #333333;
+        }
+        .selected-display::after {
+            content: '▾';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .selected-display:hover {
+            border-color: #666666;
+        }
+
+        /* ── Dropdown panel ── */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 3000;
+            min-width: 160px;
+        }
+        .dropdown.open {
+            display: block;
+        }
+
+        /* ── Top-level items ── */
+        .dropdown-item {
+            padding: 9px 14px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333333;
+            white-space: nowrap;
+            position: relative;
+        }
+        .dropdown-item:hover {
+            background: #f0f0f0;
+        }
+        .dropdown-item.has-sub {
+            padding-right: 28px;
+        }
+        .dropdown-item.has-sub::after {
+            content: '▸';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* ── Submenu ── */
+        .submenu {
+            display: none;
+            position: absolute;
+            right: 100%;
+            top: -1px;
+            background: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 160px;
+            z-index: 3001;
+        }
+        .dropdown-item.has-sub:hover .submenu {
+            display: block;
+        }
+
+        .submenu-item {
+            padding: 9px 14px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333333;
+            white-space: nowrap;
+        }
+        .submenu-item:hover {
+            background: #f0f0f0;
+        }
+
+        /* ── Divider between items (optional) ── */
+        .dropdown-divider {
+            height: 1px;
+            background: #eeeeee;
+            margin: 2px 0;
         }
     </style>
 </head>
 <body>
 
-<!-- Environment Selector Mount Point -->
-<div id="env-selector-mount"></div>
+<!-- ── Environment Selector ── -->
+<div class="environment-selector">
+    <div class="custom-select" id="customSelect">
+        <div class="selected-display" id="selectedDisplay">Test</div>
+        <div class="dropdown" id="dropdown">
+            <div class="dropdown-item" data-value="test">Test</div>
+            <div class="dropdown-item has-sub" data-value="dedicated">
+                Dedicated
+                <div class="submenu">
+                    <div class="submenu-item" data-value="dedicated_aordcid7_42507">aordcid7 42507</div>
+                    <div class="submenu-item" data-value="dedicated_aordcid2_861">aordcid2 861</div>
+                    <div class="submenu-item" data-value="dedicated_aordcid2_42278">aordcid2 42278</div>
+                    <div class="submenu-item" data-value="dedicated_aordcid2_41780">aordcid2 41780</div>
+                </div>
+            </div>
+            <div class="dropdown-item" data-value="staging">Staging</div>
+            <div class="dropdown-item" data-value="canary">Canary</div>
+        </div>
+    </div>
+</div>
 
-<!-- Adding form embedded code of Form AAA: Quality Usually LLC (42507) -->
+<!-- ── Act-On: Ad Block Detection ── -->
 <script type="text/javascript">var aoAdBlockDetected = true;</script>
 <script type="text/javascript" src="//aordcid7.ez-touch.net/acton/content/aoAdDetect.js"></script>
 <script type="text/javascript">window.addEventListener("load",function(){if(aoAdBlockDetected){var t=document.createElement("div"),o=document.createElement("div"),e=document.createElement("div"),n=document.createElement("div"),d=document.createElement("button"),i="<h1 style=\"text-align: center; line-height: 21px; color: #444444;\"><span style=\"font-family: 'helvetica neue', helvetica, arial, sans-serif;\"><strong style=\"font-weight: bold;\"><span style=\"white-space: pre-wrap; font-size: 18pt;\">It looks like youâ€™re using an AdBlocker</span></strong></span></h1> <p style=\"text-align: center; line-height: 20px; color: #444444;\"><span style=\"font-family: 'helvetica neue', helvetica, arial, sans-serif; color: #767676;\"><span style=\"white-space: pre-wrap; font-size: 18pt;\"><span style=\"white-space: pre-wrap;\"><span style=\"font-size: 14pt;\">Some of the forms and images on this page may not work correctly with this enabled. Please disable your ad blocker for this page.</span> </span></span></span></p> <p style=\"text-align: left; line-height: 20px; color: #444444;\"><span style=\"font-size: 14pt;\"><strong style=\"font-weight: 500;\"><span style=\"font-family: 'helvetica neue', helvetica, arial, sans-serif;\"><span style=\"white-space: pre-wrap;\"><span style=\"white-space: pre-wrap;\">Instructions</span></span></span></strong></span></p> <p style=\"text-align: left; line-height: 20px; color: #444444;\"><span style=\"font-size: 14pt;\"><strong style=\"font-weight: 500;\"><span style=\"font-family: 'helvetica neue', helvetica, arial, sans-serif;\"><span style=\"white-space: pre-wrap;\"><span style=\"white-space: pre-wrap;\">1. Find the ad blocker icon installed on your browser.</span></span></span></strong></span></p> <p style=\"text-align: left; line-height: 20px; color: #444444;\"><span style=\"font-size: 14pt;\"><span style=\"font-family: 'helvetica neue', helvetica, arial, sans-serif;\"><span style=\"white-space: pre-wrap;\"><span style=\"white-space: pre-wrap;\">This icon is usually located on the upper right side of your screen. You may have more than one ad blocker installed.</span></span></span></span></p> <p style=\"text-align: left; line-height: 20px; color: #444444;\"><strong style=\"font-weight: 500;\"><span style=\"font-size: 14pt;\"><span style=\"font-family: 'helvetica neue', helvetica, arial, sans-serif;\"><span style=\"white-space: pre-wrap;\"><span style=\"white-space: pre-wrap;\">2. Click the icon and disable the ad blocker for this website.</span></span></span></span></strong></p> <p style=\"text-align: left; line-height: 20px; color: #444444;\"><strong style=\"font-weight: 500;\"><span style=\"font-size: 14pt;\"><span style=\"font-family: 'helvetica neue', helvetica, arial, sans-serif;\"><span style=\"white-space: pre-wrap;\"><span style=\"white-space: pre-wrap;\">3. Refresh this website page, either by following prompts or clicking your browserâ€™s â€œrefreshâ€ or â€œreloadâ€ button.</span></span></span></span></strong></p>";t.style.cssText="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1000;background:red;background: rgba(0,0,0,0.3);",o.style.cssText="position: fixed; top: 50%; left: 50%; width: 600px; max-width: 80vw; transform: translate(-50%, -50%) !important; background: #ffffff; border-width: 1px; border-radius: 4px; border-color: #444444; border-style: solid; max-height: 80vh; overflow: auto; padding: 24px 56px 0 56px;",o.innerHTML=i,n.style.cssText="margin-top: 36px; margin-bottom: 24px; text-align: center;",o.appendChild(n),d.innerHTML="Refresh Page",d.style.cssText="cursor: pointer; padding: 12px 24px; background: #FFFFFF; border-width: 1px; color: #444444; border-color: #444444; border-radius: 4px;",n.appendChild(d),d.addEventListener("click",function(){window.location.reload()}),e.style.cssText="position: absolute; right: 25px; top: 25px; cursor: pointer; font-size: 14px; line-height: 14px; color: #444444",e.innerHTML="&#10005;",e.addEventListener("click",function(){o.parentNode.removeChild(o),t.parentNode.removeChild(t)}),document.body.appendChild(t),t.appendChild(o),o.appendChild(e)}});</script>
+
+<!-- ── Act-On: Form Embed ── -->
 <script type="text/javascript" id="aoform-script-15d6c0ca-7845-4bd5-a52b-091c2d67084b:d-0001">!function(o,t,e,a){o._aoForms=o._aoForms||[],o._aoForms.push(a);var n=function(){var o=t.createElement(e);o.src=("https:"==t.location.protocol?"https://":"http://")+"aordcid7.ez-touch.net/acton/content/form_embed.js",o.async=!0;for(var a=t.getElementsByTagName(e)[0],n=a.parentNode,c=document.getElementsByTagName("script"),r=!1,s=0;s<c.length;s++){if(c[s].getAttribute("src")==o.getAttribute("src"))r=!0;}r?typeof(_aoFormLoader)!="undefined"?_aoFormLoader.load({id:"15d6c0ca-7845-4bd5-a52b-091c2d67084b:d-0001",accountId:"42507",domain:"aordcid7.ez-touch.net",isTemp:false,noStyle:false,prefill:false}):"":n.insertBefore(o,a)};window.attachEvent?window.attachEvent("onload",n):window.addEventListener("load",n,!1),n()}(window,document,"script",{id:"15d6c0ca-7845-4bd5-a52b-091c2d67084b",accountId:"42507",domain:"aordcid7.ez-touch.net",isTemp:false,noStyle:false,prefill:false});</script>
 
-<!-- add beacon code -->
+<!-- ── Act-On: Beacon ── -->
 <script>/*<![CDATA[*/(function(w,a,b,d,s){w[a]=w[a]||{};w[a][b]=w[a][b]||{q:[],track:function(r,e,t){this.q.push({r:r,e:e,t:t||+new Date});}};var e=d.createElement(s);var f=d.getElementsByTagName(s)[0];e.async=1;e.src='//aordcid7.ez-touch.net/cdnr/aordcid7/acton/bn/tracker/42507';f.parentNode.insertBefore(e,f);})(window,'ActOn','Beacon',document,'script');ActOn.Beacon.track();/*]]>*/</script>
 
-<!-- Environment Selector Loader -->
+<!-- ── Environment Selector Logic ── -->
 <script>
-    fetch('env-selector.html')
-        .then(r => r.text())
-        .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+    const display  = document.getElementById('selectedDisplay');
+    const dropdown = document.getElementById('dropdown');
 
-            // Inject styles
-            doc.querySelectorAll('style').forEach(s =>
-                document.head.appendChild(document.adoptNode(s))
-            );
+    // Toggle open/close on button click
+    display.addEventListener('click', function(e) {
+        dropdown.classList.toggle('open');
+        e.stopPropagation();
+    });
 
-            // Inject HTML into mount point
-            const mount = document.getElementById('env-selector-mount');
-            doc.querySelectorAll('body > *').forEach(el =>
-                mount.appendChild(document.adoptNode(el))
-            );
+    // Select a top-level item (non-submenu)
+    document.querySelectorAll('.dropdown-item:not(.has-sub)').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            setSelected(item.dataset.value, item.textContent.trim());
+            e.stopPropagation();
+        });
+    });
 
-            // Inject scripts
-            doc.querySelectorAll('script').forEach(s => {
-                const script = document.createElement('script');
-                script.textContent = s.textContent;
-                document.body.appendChild(script);
-            });
-        })
-        .catch(err => console.error('Failed to load env-selector.html:', err));
+    // Select a submenu item
+    document.querySelectorAll('.submenu-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            setSelected(item.dataset.value, 'Dedicated: ' + item.textContent.trim());
+            e.stopPropagation();
+        });
+    });
+
+    // Close dropdown when clicking anywhere outside
+    document.addEventListener('click', function() {
+        dropdown.classList.remove('open');
+    });
+
+    function setSelected(value, label) {
+        display.textContent = label;
+        dropdown.classList.remove('open');
+        console.log('Selected environment:', value);
+        // Add your environment switching logic here
+    }
 </script>
 
 </body>
